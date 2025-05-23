@@ -3,16 +3,17 @@
   flex-direction: column;
   row-gap: 2rem;
   align-items: center;
+  justify-content: start;
   list-style: none;
-  width: 80%;
 }
 
-.nav li {
-  padding: 1rem 4rem;
+.nav a {
+  padding: 1rem;
   border-radius: 100px;
-  width: 90%;
+  width: 80%;
+  text-decoration: none;
 }
 
-.nav li:hover {
+.nav a:hover {
   background-color: rgba(0, 0, 0, 0.3);
 }

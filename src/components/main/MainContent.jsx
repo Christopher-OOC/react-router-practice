@@ -1,5 +1,4 @@
 import Header from "./Header";
-import Content from "./Content";
 import styles from "./MainContent.module.css";
 import { Outlet } from "react-router-dom";
 

@@ -2,35 +2,24 @@ import { useEffect, useState } from "react";
 import styles from "./ProductList.module.css";
 import Spinner from "./Spinner";
 import Product from "./Product";
+import { useProducts } from "./useProducts";
 
 function ProductList() {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const URL = "http://localhost:8000/products";
-
-  useEffect(function () {
-    async function fetchProducts() {
-      setIsLoading(true);
-      setError("");
-      try {
-        const res = await fetch(URL);
-        const data = await res.json();
-        console.log(data);
-        setProducts(data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    fetchProducts();
-  }, []);
+  const [search, setSearch] = useState("");
+  const [searchProducts, setSearchProducts] = useState([]);
+  const { products, isLoading, error } = useProducts();
 
   return (
     <div className={styles.container}>
+      <form>
+        <label>Search</label>
+        <input
+          type="text"
+          value={search}
+          onClick={(e) => setSearch(e.target.value)}
+        />
+        <button>Search</button>
+      </form>
       <p className={styles.top}>Product List</p>
       {isLoading && <Spinner />}
       {error && <p>{error}</p>}

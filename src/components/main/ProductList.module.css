@@ -1,0 +1,19 @@
+.container {
+  margin: 2rem;
+  position: relative;
+}
+
+.top {
+  text-align: center;
+  font-size: 2rem;
+  margin: 2rem 0;
+}
+
+.productList {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  justify-content: space-evenly;
+  gap: 3rem;
+  overflow-y: auto;
+}

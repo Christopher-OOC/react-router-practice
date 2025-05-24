@@ -1,6 +1,4 @@
 .main {
   flex: 1;
-  background-color: #ccc;
-  position: relative;
-  max-height: 100vh;
+  background-color: olivergreen;
 }

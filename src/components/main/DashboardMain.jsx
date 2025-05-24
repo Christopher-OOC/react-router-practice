@@ -31,7 +31,9 @@ function DashboardMain({ user, isLoading, error }) {
   return (
     <div className={styles.content}>
       {isLoading && <Spinner />}
-      {!isLoading && !error && <p>Welcome {user.name}</p>}
+      {!isLoading && !error && (
+        <p>Welcome {user?.name ? user.name : "Unknown"}</p>
+      )}
     </div>
   );
 }

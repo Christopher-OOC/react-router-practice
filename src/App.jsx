@@ -3,6 +3,8 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import PageNotFound from "./pages/PageNotFound";
 import DashboardMain from "./components/main/DashboardMain";
+import ProductList from "./components/main/ProductList";
+import ProductDetails from "./components/main/ProductDetails";
 
 const URL = "http://localhost:8000/user";
 
@@ -41,7 +43,8 @@ export default function App() {
               <DashboardMain user={user} isLoading={isLoading} error={error} />
             }
           />
-          <Route path="products" element={<p>Products</p>} />
+          <Route path="products" element={<ProductList />} />
+          <Route path="products/:id" element={<ProductDetails />} />
           <Route path="cart" element={<p>Cart</p>} />
           <Route path="orders" element={<p>Orders</p>} />
           <Route path="transactions" element={<p>Transactions</p>} />

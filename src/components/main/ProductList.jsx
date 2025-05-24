@@ -14,6 +14,8 @@ function ProductList() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const color = searchParams.get("color");
+
   useEffect(
     function () {
       if (search) {
@@ -58,7 +60,7 @@ function ProductList() {
         value={option}
         onChange={(e) => handleChangeColor(e.target.value)}
       >
-        <option value={null}>Select</option>
+        <option value="">Select</option>
         <option value="red">Red</option>
         <option value="blue">Blue</option>
         <option value="yellow">Yellow</option>
@@ -71,7 +73,7 @@ function ProductList() {
       {!isLoading && searchProducts.length > 0 && (
         <ul className={styles.productList}>
           {searchProducts.map((product) => (
-            <Product product={product} />
+            <Product product={product} color={color} />
           ))}
         </ul>
       )}

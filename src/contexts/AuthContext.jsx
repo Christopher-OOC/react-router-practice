@@ -17,12 +17,16 @@ function reducer(state, action) {
                 isAdmin: action.payload.isAdmin
             }
         }
+        default: {
+            return state;
+        }
     }
 }
 
 function AuthProvider({children}) {
 
     const [state, dispatch] = useReducer(reducer, initialState); 
+    const {user, isAuthenticated, isAdmin} = state;
 
     return <AuthContext.Provider value={}>
         {children}

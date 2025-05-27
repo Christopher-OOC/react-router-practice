@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
 
 const AuthContext = createContext();
 const initialState = {
@@ -56,3 +56,14 @@ function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
+
+function useAuth() {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error("Cannot access AuthContext outside the context!");
+  }
+
+  return context;
+}
+
+export { AuthProvider, useAuth };

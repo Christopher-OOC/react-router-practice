@@ -2,33 +2,57 @@ import { createContext, useReducer } from "react";
 
 const AuthContext = createContext();
 const initialState = {
-    user: null,
-    isAuthenticated: false,
-    isAdmin: false
-}
+  user: null,
+  isAuthenticated: false,
+  isAdmin: false,
+};
 
 function reducer(state, action) {
-    switch(action.type) {
-        case 'login': {
-            return {
-                ...state,
-                user: {email: action.payload.email, password: action.payload.password},
-                isAuthenticated: true,
-                isAdmin: action.payload.isAdmin
-            }
-        }
-        default: {
-            return state;
-        }
+  switch (action.type) {
+    case "login": {
+      return {
+        ...state,
+        user: {
+          email: action.payload.email,
+          password: action.payload.password,
+        },
+        isAuthenticated: true,
+        isAdmin: action.payload.isAdmin,
+      };
     }
+    case "logout": {
+      return {
+        ...state,
+        user: null,
+        isAuthenticated: false,
+        isAdmin: false,
+      };
+    }
+    default: {
+      return state;
+    }
+  }
 }
 
-function AuthProvider({children}) {
+function AuthProvider({ children }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { user, isAuthenticated, isAdmin } = state;
 
-    const [state, dispatch] = useReducer(reducer, initialState); 
-    const {user, isAuthenticated, isAdmin} = state;
+  function login(email, password) {
+    if (email === password) {
+      dispatch({ type: "login", payload: { email, password } });
+    }
+  }
 
-    return <AuthContext.Provider value={}>
-        {children}
+  function logout() {
+    dispatch({ type: "logout" });
+  }
+
+  return (
+    <AuthContext.Provider
+      value={{ user, isAuthenticated, isAdmin, login, logout }}
+    >
+      {children}
     </AuthContext.Provider>
+  );
 }

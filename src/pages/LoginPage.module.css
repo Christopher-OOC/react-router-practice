@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.formLogin {
+  padding: 2rem;
+}
+
+.formLogin > * {
+  margin: 3rem 0;
+}
+
+.formLogin input {
+  height: 3rem;
+  width: 20rem;
+}

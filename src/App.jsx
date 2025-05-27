@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
+import HomePage from "./pages/HomePage";
 import PageNotFound from "./pages/PageNotFound";
 import DashboardMain from "./components/main/DashboardMain";
 import ProductList from "./components/main/ProductList";
 import ProductDetails from "./components/main/ProductDetails";
+import LoginPage from "./pages/LoginPage";
 
 const URL = "http://localhost:8000/user";
 
@@ -35,6 +37,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route index path="/" element={<HomePage />} />
+        <Route index path="/login" element={<LoginPage />} />
         <Route path="/app" element={<Dashboard />}>
           <Route index element={<Navigate replace to="dashboard" />} />
           <Route

@@ -70,14 +70,14 @@ function ProductList() {
       <p className={styles.top}>Product List</p>
       {isLoading && <Spinner />}
       {error && <p>{error}</p>}
-      {!isLoading && searchProducts.length > 0 && (
+      {!isLoading && !error && searchProducts.length > 0 && (
         <ul className={styles.productList}>
           {searchProducts.map((product) => (
             <Product product={product} color={color} />
           ))}
         </ul>
       )}
-      {!isLoading && searchProducts.length === 0 && (
+      {!isLoading && !error && searchProducts.length === 0 && (
         <p>No product available!</p>
       )}
     </div>

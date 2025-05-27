@@ -7,8 +7,6 @@ function LoginPage() {
 
   function handleLogin(e) {
     e.preventDefault();
-    console.log("email", email);
-    console.log("password", password);
   }
 
   return (

@@ -38,9 +38,9 @@ function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { user, isAuthenticated, isAdmin } = state;
 
-  function login(email, password) {
+  function login(email, password, isAdmin) {
     if (email === password) {
-      dispatch({ type: "login", payload: { email, password } });
+      dispatch({ type: "login", payload: { email, password, isAdmin } });
     }
   }
 

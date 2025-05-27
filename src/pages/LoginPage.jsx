@@ -1,16 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./LoginPage.module.css";
+import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
+  const { isAuthenticated, login, error } = useAuth();
+
+  useEffect(
+    function () {
+      if (isAuthenticated) {
+        navigate("/app");
+      }
+    },
+    [isAuthenticated]
+  );
 
   function handleLogin(e) {
     e.preventDefault();
-    console.log("emial, ", email);
-    console.log("password, ", password);
-    console.log("isAdmin, ", isAdmin);
+    login(email, password);
   }
 
   return (
@@ -18,6 +29,7 @@ function LoginPage() {
       <form className={styles.formLogin}>
         <p>Please provide ur email and password to login!</p>
         <div>
+          {error ? <p style={{ color: "red" }}>{error}</p> : ""}
           <label>Email: </label>
           <input
             type="text"

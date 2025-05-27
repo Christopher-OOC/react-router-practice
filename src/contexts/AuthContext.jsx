@@ -1,10 +1,12 @@
 import { createContext, useContext, useReducer } from "react";
 
 const AuthContext = createContext();
+
 const initialState = {
   user: null,
   isAuthenticated: false,
   isAdmin: false,
+  error: "",
 };
 
 function reducer(state, action) {
@@ -18,6 +20,12 @@ function reducer(state, action) {
         },
         isAuthenticated: true,
         isAdmin: action.payload.isAdmin,
+      };
+    }
+    case "invalid": {
+      return {
+        ...state,
+        error: "Invalid username or password!",
       };
     }
     case "logout": {
@@ -36,11 +44,13 @@ function reducer(state, action) {
 
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { user, isAuthenticated, isAdmin } = state;
+  const { user, isAuthenticated, isAdmin, error } = state;
 
   function login(email, password, isAdmin) {
     if (email === password) {
       dispatch({ type: "login", payload: { email, password, isAdmin } });
+    } else {
+      dispatch({ type: "invalid" });
     }
   }
 
@@ -50,7 +60,7 @@ function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated, isAdmin, login, logout }}
+      value={{ user, isAuthenticated, isAdmin, error, login, logout }}
     >
       {children}
     </AuthContext.Provider>

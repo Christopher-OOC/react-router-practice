@@ -8,6 +8,8 @@ import ProductList from "./components/main/ProductList";
 import ProductDetails from "./components/main/ProductDetails";
 import LoginPage from "./pages/LoginPage";
 
+import { AuthProvider } from "./contexts/AuthContext";
+
 const URL = "http://localhost:8000/user";
 
 export default function App() {
@@ -35,27 +37,33 @@ export default function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route index path="/" element={<HomePage />} />
-        <Route index path="/login" element={<LoginPage />} />
-        <Route path="/app" element={<Dashboard />}>
-          <Route index element={<Navigate replace to="dashboard" />} />
-          <Route
-            path="dashboard"
-            element={
-              <DashboardMain user={user} isLoading={isLoading} error={error} />
-            }
-          />
-          <Route path="products" element={<ProductList />} />
-          <Route path="products/:id" element={<ProductDetails />} />
-          <Route path="cart" element={<p>Cart</p>} />
-          <Route path="orders" element={<p>Orders</p>} />
-          <Route path="transactions" element={<p>Transactions</p>} />
-          <Route path="admin" element={<p>Admin</p>} />
-        </Route>
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route index path="/" element={<HomePage />} />
+          <Route index path="/login" element={<LoginPage />} />
+          <Route path="/app" element={<Dashboard />}>
+            <Route index element={<Navigate replace to="dashboard" />} />
+            <Route
+              path="dashboard"
+              element={
+                <DashboardMain
+                  user={user}
+                  isLoading={isLoading}
+                  error={error}
+                />
+              }
+            />
+            <Route path="products" element={<ProductList />} />
+            <Route path="products/:id" element={<ProductDetails />} />
+            <Route path="cart" element={<p>Cart</p>} />
+            <Route path="orders" element={<p>Orders</p>} />
+            <Route path="transactions" element={<p>Transactions</p>} />
+            <Route path="admin" element={<p>Admin</p>} />
+          </Route>
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }

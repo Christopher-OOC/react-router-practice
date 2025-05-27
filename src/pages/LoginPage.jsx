@@ -13,7 +13,7 @@ function LoginPage() {
   useEffect(
     function () {
       if (isAuthenticated) {
-        navigate("/app");
+        navigate("/app", { replace: true });
       }
     },
     [isAuthenticated]

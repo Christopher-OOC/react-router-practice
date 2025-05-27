@@ -9,6 +9,7 @@ import ProductDetails from "./components/main/ProductDetails";
 import LoginPage from "./pages/LoginPage";
 
 import { AuthProvider } from "./contexts/AuthContext";
+import ProtectedRoute from "./components/main/ProtectedRoute";
 
 const URL = "http://localhost:8000/user";
 
@@ -42,7 +43,14 @@ export default function App() {
         <Routes>
           <Route index path="/" element={<HomePage />} />
           <Route index path="/login" element={<LoginPage />} />
-          <Route path="/app" element={<Dashboard />}>
+          <Route
+            path="/app"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route
               path="dashboard"

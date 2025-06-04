@@ -7,9 +7,11 @@ import DashboardMain from "./components/main/DashboardMain";
 import ProductList from "./components/main/ProductList";
 import ProductDetails from "./components/main/ProductDetails";
 import LoginPage from "./pages/LoginPage";
+import UnauthorizedPage from "./pages/UnauthorizedPage";
 
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/main/ProtectedRoute";
+import ProtectedAdminRoute from "./components/main/ProtectedAdminRoute";
 
 const URL = "http://localhost:8000/user";
 
@@ -42,7 +44,9 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route index path="/" element={<HomePage />} />
-          <Route index path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/logout" element={<LoginPage />} />
+          <Route path="/unauthorize" element={<UnauthorizedPage />} />
           <Route
             path="/app"
             element={
@@ -67,7 +71,14 @@ export default function App() {
             <Route path="cart" element={<p>Cart</p>} />
             <Route path="orders" element={<p>Orders</p>} />
             <Route path="transactions" element={<p>Transactions</p>} />
-            <Route path="admin" element={<p>Admin</p>} />
+            <Route
+              path="admin"
+              element={
+                <ProtectedAdminRoute>
+                  <p>Admin</p>
+                </ProtectedAdminRoute>
+              }
+            />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

@@ -12,14 +12,23 @@ const initialState = {
 function reducer(state, action) {
   switch (action.type) {
     case "login": {
-      return {
-        ...state,
+      const value = {
         user: {
           email: action.payload.email,
           password: action.payload.password,
         },
         isAuthenticated: true,
         isAdmin: action.payload.isAdmin,
+        error: "",
+      };
+
+      console.log(value);
+
+      localStorage.setItem("authObject", JSON.stringify(value));
+
+      return {
+        ...state,
+        ...value,
       };
     }
     case "invalid": {
@@ -29,6 +38,7 @@ function reducer(state, action) {
       };
     }
     case "logout": {
+      localStorage.setItem("authObject", JSON.stringify(initialState));
       return {
         ...state,
         user: null,
@@ -44,7 +54,16 @@ function reducer(state, action) {
 
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { user, isAuthenticated, isAdmin, error } = state;
+  let { user, isAuthenticated, isAdmin, error } = state;
+  const authObject = JSON.parse(localStorage.getItem("authObject"));
+
+  if (authObject) {
+    user = authObject.user;
+    isAuthenticated = authObject.isAuthenticated;
+    isAdmin = authObject.isAdmin;
+  }
+
+  console.log(authObject);
 
   function login(email, password, isAdmin) {
     if (email === password) {

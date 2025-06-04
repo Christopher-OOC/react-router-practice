@@ -16,6 +16,9 @@ function HomePage() {
           <Link to="signup">
             <li>sign up</li>
           </Link>
+          <Link to="logout">
+            <li>logout</li>
+          </Link>
         </ul>
       </div>
       <div className={styles.content}>

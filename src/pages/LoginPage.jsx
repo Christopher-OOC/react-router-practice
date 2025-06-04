@@ -8,7 +8,7 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
-  const { isAuthenticated, login, error } = useAuth();
+  const { isAuthenticated, login, logout, error } = useAuth();
 
   useEffect(
     function () {
@@ -21,7 +21,11 @@ function LoginPage() {
 
   function handleLogin(e) {
     e.preventDefault();
-    login(email, password);
+    login(email, password, isAdmin);
+  }
+
+  if (location.pathname.includes("logout")) {
+    logout();
   }
 
   return (

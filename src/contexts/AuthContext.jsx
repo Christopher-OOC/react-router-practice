@@ -55,7 +55,12 @@ function reducer(state, action) {
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   let { user, isAuthenticated, isAdmin, error } = state;
-  const authObject = JSON.parse(localStorage.getItem("authObject"));
+  console.log(localStorage.getItem("authObject"));
+  const authObject = JSON.parse(
+    localStorage.getItem("authObject")
+      ? localStorage.getItem("authObject")
+      : null
+  );
 
   if (authObject) {
     user = authObject.user;
